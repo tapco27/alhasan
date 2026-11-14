@@ -1,0 +1,10 @@
+{
+  "name": "alhasan-ad",
+  "private": true,
+  "description": "Al-Hasan ad video template: fonts used by the film pages",
+  "dependencies": {
+    "@fontsource/amiri": "^5.3.0",
+    "@fontsource/playpen-sans-arabic": "^5.3.0",
+    "@fontsource/tajawal": "^5.3.0"
+  }
+}

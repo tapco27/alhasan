@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<title>الحسن — قالب الإعلان الهجين</title>
+<link rel="stylesheet" href="../node_modules/@fontsource/tajawal/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/tajawal/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/tajawal/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/tajawal/800.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/amiri/700.css">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:#000;font-family:'Tajawal',sans-serif;color:#fff}
+.scene{position:absolute;inset:0;overflow:hidden}
+
+/* Footage */
+#plate{position:absolute;inset:0;width:1080px;height:1920px;object-fit:cover}
+#plateDim{position:absolute;inset:0;background:#05070c;opacity:0}
+#topShade{position:absolute;left:0;right:0;top:0;height:900px;background:linear-gradient(180deg,rgba(4,8,18,.82) 0%,rgba(4,8,18,.55) 45%,transparent 100%);opacity:0}
+
+/* Phone with the live site */
+#phone{position:absolute;left:230px;top:150px;width:620px;height:1270px;border-radius:84px;background:#0c0c0f;box-shadow:0 0 0 3px #3a3a40,0 0 0 9px #111114,0 50px 110px rgba(0,0,0,.75);transform-origin:50% 45%;display:none}
+#phone .screen{position:absolute;inset:16px;border-radius:68px;overflow:hidden;background:#f4f6fb}
+.isl{position:absolute;left:50%;top:18px;width:150px;height:40px;margin-left:-75px;border-radius:20px;background:#000;z-index:6}
+.bar{position:absolute;left:0;right:0;top:0;height:136px;background:#fff;z-index:5;box-shadow:0 1px 0 rgba(15,25,50,.08)}
+.status{position:absolute;left:0;right:0;top:0;height:74px;font:700 25px Tajawal;color:#15171c;display:flex;justify-content:space-between;align-items:center;padding:10px 46px 0;direction:ltr}
+.status i{display:inline-block;width:42px;height:20px;border-radius:6px;border:2px solid currentColor;position:relative}
+.status i::after{content:"";position:absolute;left:2px;top:2px;bottom:2px;width:24px;border-radius:2px;background:currentColor}
+.url{position:absolute;left:44px;right:44px;top:76px;height:50px;border-radius:25px;background:#eef0f4;display:flex;align-items:center;justify-content:center;gap:10px;font:500 25px Tajawal;color:#22262e;direction:ltr}
+#siteView{position:absolute;left:0;right:0;top:136px;bottom:0;overflow:hidden}
+#siteFull{position:absolute;left:0;top:0;width:588px}
+#siteHead{position:absolute;left:0;top:0;width:588px;z-index:2}
+#siteNav{position:absolute;left:0;bottom:0;width:588px;z-index:3}
+#ripple{position:absolute;width:170px;height:170px;margin:-85px 0 0 -85px;border-radius:50%;background:rgba(255,255,255,.55);opacity:0;z-index:4}
+
+/* Finale: gold house and the finished building */
+#scB{background:radial-gradient(ellipse 95% 62% at 50% 38%,#14284f 0%,#0b1730 50%,#060c1a 100%);display:none}
+#site{position:absolute;left:0;top:0;width:1080px;height:1920px}
+.vo{position:absolute;left:40px;right:40px;top:250px;text-align:center;direction:rtl;font:700 82px/1.5 Amiri;opacity:0;text-shadow:0 4px 30px rgba(3,8,20,.95),0 0 6px rgba(3,8,20,.6)}
+.vo b{color:#EBCB6E;font-size:112px;line-height:1.3}
+
+/* Stage title over construction shots */
+#stg{position:absolute;left:0;right:0;top:230px;text-align:center;direction:rtl;opacity:0}
+#stgN{font:800 30px Tajawal;color:#E3BE5A;letter-spacing:6px;direction:ltr;text-shadow:0 2px 12px rgba(0,0,0,.8)}
+#stgT{font:800 74px/1.3 Tajawal;margin-top:6px;text-shadow:0 3px 22px rgba(0,0,0,.85)}
+#bars{display:flex;gap:12px;justify-content:center;margin-top:20px;direction:rtl}
+#bars i{display:block;width:92px;height:5px;border-radius:3px;background:rgba(255,255,255,.28);overflow:hidden}
+#bars i b{display:block;height:100%;width:0;background:#E3BE5A}
+
+/* Brand card */
+#scC{background:#030303;display:none}
+#glow{position:absolute;left:50%;top:590px;width:1400px;height:1400px;margin:-700px 0 0 -700px;background:radial-gradient(circle,rgba(212,175,55,.17) 0%,rgba(212,175,55,.05) 36%,transparent 66%)}
+#dust{position:absolute;inset:0}
+#logoWrap{position:absolute;left:200px;top:250px;width:680px;height:619px}
+#logo{position:absolute;inset:0;width:100%;height:100%}
+#shine{position:absolute;inset:0;-webkit-mask:url(../assets/logo.png) center/100% 100% no-repeat;mask:url(../assets/logo.png) center/100% 100% no-repeat;background:linear-gradient(105deg,transparent 42%,rgba(255,250,225,.9) 50%,transparent 58%) no-repeat;background-size:300% 100%;mix-blend-mode:screen;opacity:0}
+.c{position:absolute;left:0;right:0;text-align:center;direction:rtl;opacity:0}
+#brand{top:926px;font:800 58px Tajawal}
+#slogan{top:1014px;font:700 56px Amiri;color:#E3BE5A}
+#rule{top:1140px;left:50%;right:auto;width:440px;margin-left:-220px;height:2px;background:linear-gradient(90deg,transparent,#d4af37,transparent)}
+#ctl{top:1172px;font:500 34px Tajawal;color:#c4c4c4}
+#num{top:1232px;display:flex;align-items:center;justify-content:center;gap:26px;direction:ltr;font:800 76px Tajawal;letter-spacing:1px}
+#num svg{width:96px;height:64px;border-radius:8px;box-shadow:0 0 0 1.5px rgba(255,255,255,.35)}
+#web{top:1352px;display:flex;align-items:center;justify-content:center;gap:16px;direction:ltr;font:700 56px Tajawal;color:#E9C766;letter-spacing:.5px}
+#loc{top:1456px;font:400 31px Tajawal;color:#a6a6a6}
+#loc span{direction:ltr;unicode-bidi:isolate;color:#d8d8d8;font-weight:500}
+
+/* Captions and overlays */
+#capBg{position:absolute;left:0;right:0;bottom:0;height:820px;background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.6) 48%,rgba(0,0,0,.82) 100%);opacity:0}
+#cap{position:absolute;left:56px;right:56px;bottom:290px;text-align:center;direction:rtl;opacity:0}
+#capTxt{font:700 60px/1.42 Tajawal;color:#fff;text-shadow:0 3px 18px rgba(0,0,0,.95),0 0 4px rgba(0,0,0,.8);text-wrap:balance}
+#capTxt span{display:inline-block}
+#cap.long #capTxt{font-size:52px}
+#black{position:absolute;inset:0;background:#000;opacity:1}
+</style>
+</head>
+<body>
+<div id="stage">
+  <img id="plate" alt="">
+  <div id="plateDim"></div>
+  <div id="topShade"></div>
+
+  <div id="phone">
+    <div class="screen">
+      <div class="isl"></div>
+      <div class="bar">
+        <div class="status"><span>9:41</span><i></i></div>
+        <div class="url"><svg width="20" height="22" viewBox="0 0 20 22" fill="#5b6270"><path d="M5 9V6a5 5 0 0110 0v3h1a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2v-8a2 2 0 012-2zm2 0h6V6a3 3 0 00-6 0z"/></svg><span class="siteUrl"></span></div>
+      </div>
+      <div id="siteView">
+        <img id="siteFull" src="../assets/site/full.jpg" alt="">
+        <img id="siteHead" src="../assets/site/head.png" alt="">
+        <img id="siteNav" src="../assets/site/nav.png" alt="">
+        <div id="ripple"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="scB" class="scene">
+    <svg id="site" viewBox="0 0 1080 1920"></svg>
+    <div class="vo" id="vo2"></div>
+  </div>
+
+  <div id="scC" class="scene">
+    <div id="glow"></div>
+    <canvas id="dust" width="1080" height="1920"></canvas>
+    <div id="logoWrap"><img id="logo" src="../assets/logo.png" alt=""><div id="shine"></div></div>
+    <div class="c" id="brand"></div>
+    <div class="c" id="slogan"></div>
+    <div class="c" id="rule"></div>
+    <div class="c" id="ctl">للاستفسار والتواصل</div>
+    <div class="c" id="num"><svg id="flag" viewBox="0 0 90 60"></svg><span id="numTxt"></span></div>
+    <div class="c" id="web"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="#E9C766" stroke-width="1.7"><circle cx="12" cy="12" r="9.2"/><path d="M2.8 12h18.4M12 2.8c3 3.2 3 15.2 0 18.4M12 2.8c-3 3.2-3 15.2 0 18.4"/></svg><span class="siteUrl"></span></div>
+    <div class="c" id="loc">من داخل سوريا: <span id="locTxt"></span></div>
+  </div>
+
+  <div id="stg"><div id="stgN"></div><div id="stgT"></div><div id="bars"></div></div>
+  <div class="vo" id="vo1"></div>
+  <div id="capBg"></div>
+  <div id="cap"><div id="capTxt"></div></div>
+  <div id="black"></div>
+</div>
+
+<script src="ad.js"></script>
+<script>
+// ---------- The whole edit comes from ad.js (written by edit.py) ----------
+const SEGS = AD.segs, CAPS = AD.caps, CUE = AD.cues, SEG = Object.fromEntries(SEGS.map(s => [s.id, s]));
+window.DURATION = AD.duration; window.FPS = AD.fps;
+// Texts from the ad file
+document.querySelector('#vo1').innerHTML = AD.texts.vo1; document.querySelector('#vo2').innerHTML = AD.texts.vo2;
+document.querySelector('#brand').textContent = AD.brand.name; document.querySelector('#slogan').textContent = AD.brand.slogan;
+document.querySelector('#numTxt').textContent = AD.brand.phoneIntl; document.querySelector('#locTxt').textContent = AD.brand.phoneLocal;
+document.querySelectorAll('.siteUrl').forEach(e => { e.textContent = AD.brand.website; });
+
+// ---------- Helpers ----------
+const $ = s => document.querySelector(s);
+const NS = 'http://www.w3.org/2000/svg';
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, x) => a + (b - a) * x;
+const E = { l: x => x, s: x => x * x * (3 - 2 * x), i: x => x * x * x, o: x => 1 - Math.pow(1 - x, 3), io: x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2 };
+const P = (t, a, b, e = E.l) => e(clamp((t - a) / (b - a)));
+function rng(seed) { let a = seed >>> 0; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function el(tag, attrs = {}, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+const show = (e, on) => { e.style.display = on ? 'block' : 'none'; };
+const op = (e, v) => { e.style.opacity = v; };
+function mkStroke(parent, d, color, w, extra = {}) { return el('path', { d, fill: 'none', stroke: color, 'stroke-width': w, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1, ...extra }, parent); }
+function setP(path, p) { path.setAttribute('stroke-dashoffset', (1 - p).toFixed(4)); path.style.visibility = p <= 0.0005 ? 'hidden' : 'visible'; }
+
+// ---------- Footage ----------
+const plate = $('#plate'); let plateSrc = '';
+const frameAt = srcT => clamp(Math.floor(srcT * AD.srcFps + 1e-6) + 1, 1, AD.srcFrames);
+async function setPlate(frame, soft) {
+  const src = AD.plates + String(frame).padStart(5, '0') + '.jpg';
+  if (src !== plateSrc) { plate.src = src; plateSrc = src; await plate.decode(); }
+  plate.style.filter = soft ? `blur(${soft}px)` : 'none'; plate.style.transform = soft ? 'scale(1.1)' : 'none';
+}
+
+// ---------- Phone with the site ----------
+const phone = $('#phone'), siteFull = $('#siteFull'), K = 588 / AD.site.width;   // site CSS px -> phone px
+function renderPhone(t, s) {
+  show(phone, !!s); if (!s) return;
+  const u = t - s.t0, inP = P(u, 0, .5, E.o), z = P(t, CUE.zoom, s.t1, E.i);
+  phone.style.transform = `translateY(${((1 - inP) * 1700).toFixed(1)}px) rotate(${((1 - inP) * 6).toFixed(2)}deg) scale(${(1 + z * 1.5).toFixed(4)})`;
+  op($('#plateDim'), inP * .5);
+  // Scroll from the hero down to the first project, then tap "عرض المشروع"
+  const target = AD.site.firstImageTop - 96, sc = P(u, 1.0, 2.7, E.io) * target;
+  siteFull.style.transform = `translateY(${(-sc * K).toFixed(1)}px)`;
+  const rp = P(t, CUE.tap, CUE.tap + .45, E.o), rip = $('#ripple');
+  rip.style.left = (AD.site.button.x * K) + 'px'; rip.style.top = ((AD.site.button.y - target) * K) + 'px';
+  op(rip, rp > 0 && rp < 1 ? (1 - rp) * .8 : 0); rip.style.transform = `scale(${.25 + rp * 1.4})`;
+}
+
+// ---------- Finale: house + building ----------
+const site = $('#site'), GOLD = '#E3BE5A';
+const GY = 1500, BX0 = 250, BX1 = 830, COLS = [250, 443, 637, 830], FH = 150, NF = 5, SLABX = BX0 - 24, SLABW = BX1 - BX0 + 48, TOPY = GY - NF * FH - 110;
+const fy = k => GY - k * FH;
+const sdefs = el('defs', {}, site);
+sdefs.innerHTML = `<pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0H0V60" fill="none" stroke="#fff" stroke-opacity=".05" stroke-width="1"/></pattern>
+<filter id="lglow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<linearGradient id="winLit" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE7A6"/><stop offset="1" stop-color="#FFC25C"/></linearGradient>`;
+const L = (x1, y1, x2, y2) => `M${x1},${y1}L${x2},${y2}`;
+const G = (attrs = {}, parent = site) => el('g', attrs, parent);
+const thin = { fill: 'none', stroke: GOLD, 'stroke-width': 2.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' };
+el('rect', { width: 1080, height: 1920, fill: 'url(#grid)' }, site);
+const STARS = []; { const r = rng(77), g = G(); for (let i = 0; i < 70; i++) STARS.push({ e: el('circle', { cx: (r() * 1080).toFixed(0), cy: (40 + r() * 1150).toFixed(0), r: (.8 + r() * 1.6).toFixed(1), fill: '#fff' }, g), sp: 1 + r() * 2.5, ph: r() * 6.28 }); }
+const gGround = G(), groundL = mkStroke(gGround, L(540, GY, 50, GY), GOLD, 3), groundR = mkStroke(gGround, L(540, GY, 1030, GY), GOLD, 3);
+const hatch = el('path', { d: [...Array(25)].map((_, i) => L(60 + i * 40, GY + 6, 44 + i * 40, GY + 22)).join(''), stroke: GOLD, 'stroke-width': 1.5, 'stroke-opacity': .4 }, gGround);
+const riseClip = el('rect', { x: 0, y: 0, width: 1080, height: 0 }, el('clipPath', { id: 'riseClip' }, sdefs));
+const gBuild = G({ 'clip-path': 'url(#riseClip)', opacity: .6 });
+// Columns, facade, windows
+for (let k = 1; k <= NF; k++) { const g = G({ ...thin, fill: '#12244a' }, gBuild); COLS.forEach(c => el('rect', { x: c - 12, y: fy(k), width: 24, height: FH }, g)); }
+const WINS = [];
+for (let k = 1; k <= NF; k++) {
+  const g = G({ ...thin, 'stroke-width': 2 }, gBuild), top = fy(k) + 9, bot = fy(k - 1) - 9;
+  for (let b = 0; b < 3; b++) {
+    const x0 = COLS[b] + 12, x1 = COLS[b + 1] - 12, mid = (x0 + x1) / 2;
+    el('rect', { x: x0, y: top, width: x1 - x0, height: bot - top, fill: '#0f2146', stroke: 'none' }, g);
+    if (b === 1 && k === 1) { el('rect', { x: mid - 38, y: bot - 112, width: 76, height: 112, fill: '#0b1730' }, g); el('path', { d: L(mid, bot - 112, mid, bot) + L(mid - 58, bot - 122, mid + 58, bot - 122) }, g); WINS.push({ x: mid - 38, y: bot - 112, w: 76, h: 112 }); continue; }
+    if (b === 1) {
+      WINS.push({ x: mid - 46, y: top + 22, w: 92, h: bot - top - 22 }); el('rect', { x: mid - 46, y: top + 22, width: 92, height: bot - top - 22, fill: '#0b1730' }, g);
+      el('path', { d: L(x0 + 8, bot - 44, x1 - 8, bot - 44) + [...Array(11)].map((_, i) => L(x0 + 8 + i * (x1 - x0 - 16) / 10, bot - 44, x0 + 8 + i * (x1 - x0 - 16) / 10, bot)).join('') }, g); continue;
+    }
+    [x0 + 20, x1 - 20 - 54].forEach(x => { WINS.push({ x, y: top + 26, w: 54, h: 78 }); el('rect', { x, y: top + 26, width: 54, height: 78, fill: '#0b1730' }, g); el('path', { d: L(x + 27, top + 26, x + 27, top + 104) }, g); });
+  }
+}
+for (let k = 1; k <= NF; k++) el('rect', { x: SLABX, y: fy(k) - 9, width: SLABW, height: 18, ...thin, fill: '#1a2f5c' }, gBuild);
+const gLights = G({ filter: 'url(#lglow)' }, gBuild);
+{ const r = rng(9), order = WINS.map((_, i) => i).sort(() => r() - .5); WINS.forEach((w, i) => { w.o = order.indexOf(i); w.e = el('rect', { x: w.x + 3, y: w.y + 3, width: w.w - 6, height: w.h - 6, fill: 'url(#winLit)', opacity: 0 }, gLights); w.skip = r() < .16; }); }
+el('path', { ...thin, d: `M${SLABX},${fy(NF) - 9}v-30h${SLABW}v30` + [310, 372].map(x => `M${x},${fy(NF) - 39}v-14M${x + 36},${fy(NF) - 39}v-14M${x - 4},${fy(NF) - 53}h44v-40h-44z`).join('') + `M748,${fy(NF) - 39}v-26M730,${fy(NF) - 84}a22,22 0 0 0 36,20z` }, gBuild);
+// Gold house (a child's house, drawn in one line)
+const gHouse = G({ fill: '#0b1730', stroke: '#FFE9A8', 'stroke-linejoin': 'round', 'stroke-linecap': 'round' });
+const houseParts = ['M255,902V576H648V902Z', 'M212,588L452,338L690,586Z', 'M310,655H420V762H310ZM365,655V762M310,708H420', 'M462,902V690H634V902M484,866V876'].map(d => el('path', { d, pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1 }, gHouse));
+
+const scB = $('#scB');
+function renderFinale(t) {
+  const f = SEG.finale, on = t >= f.t0 - .35 && t < SEG.brand.t0 + .4; show(scB, on); if (!on) return;
+  const x = t - f.t0;
+  op(scB, P(x, -.3, .45, E.s) * (1 - P(t, SEG.brand.t0 - .35, SEG.brand.t0 + .35)));
+  STARS.forEach(s => op(s.e, .35 + .65 * (.5 + .5 * Math.sin(t * s.sp + s.ph))));
+  const g = P(x, .55, 1.3, E.io); setP(groundL, P(x, .5, 1.1, E.io)); setP(groundR, P(x, .5, 1.1, E.io)); op(hatch, P(x, .5, 1.1));
+  // House starts large in the middle of the frame, then settles on the ground line
+  const sc = lerp(1.12, .62, g);
+  gHouse.setAttribute('transform', `translate(540,${lerp(1190, GY, g).toFixed(2)}) scale(${sc.toFixed(4)}) translate(-450,-902)`);
+  gHouse.setAttribute('stroke-width', (6 / sc).toFixed(2)); gHouse.setAttribute('fill-opacity', P(x, .4, 1.0));
+  houseParts.forEach((p, i) => p.setAttribute('stroke-dashoffset', 1 - P(x, -.15 + i * .08, .4 + i * .08, E.s)));
+  // Building rises behind it, windows light up
+  const rise = P(x, .95, 2.2, E.io); riseClip.setAttribute('y', GY + 80 - (GY + 80 - TOPY) * rise); riseClip.setAttribute('height', (GY + 80 - TOPY) * rise);
+  WINS.forEach(w => op(w.e, w.skip ? 0 : P(x, 1.7 + w.o * .04, 1.95 + w.o * .04)));
+  const v2 = P(t, CUE.vo2, CUE.vo2 + .45, E.o); op($('#vo2'), v2 * (1 - P(t, CUE.voEnd - .35, CUE.voEnd))); $('#vo2').style.transform = `translateY(${(1 - v2) * 24}px)`;
+}
+
+// ---------- Brand card ----------
+const scC = $('#scC'), dust = $('#dust').getContext('2d'), DUST = []; { const r = rng(404); for (let i = 0; i < 70; i++) DUST.push({ x: r() * 1080, y: r() * 1920, s: .8 + r() * 2.2, v: 14 + r() * 30, ph: r() * 6.28, sp: .6 + r() * 1.6, dr: (r() - .5) * 30 }); }
+// Current Syrian flag: green, white, black with three red stars
+(function flag() {
+  const f = $('#flag'); el('rect', { width: 90, height: 20, fill: '#007A3D' }, f); el('rect', { y: 20, width: 90, height: 20, fill: '#fff' }, f); el('rect', { y: 40, width: 90, height: 20, fill: '#000' }, f);
+  [22.5, 45, 67.5].forEach(cx => el('polygon', { points: [...Array(10)].map((_, i) => { const r = i % 2 ? 2.9 : 7.4, a = -Math.PI / 2 + i * Math.PI / 5; return (cx + Math.cos(a) * r).toFixed(2) + ',' + (30 + Math.sin(a) * r).toFixed(2); }).join(' '), fill: '#CE1126' }, f));
+})();
+function renderBrand(t) {
+  const b = SEG.brand, on = t >= b.t0 - .4; show(scC, on); if (!on) return;
+  const y = t - b.t0;
+  op(scC, P(y, -.35, .35, E.s));
+  dust.clearRect(0, 0, 1080, 1920);
+  for (const d of DUST) { const yy = ((d.y - t * d.v) % 1920 + 1920) % 1920, xx = d.x + Math.sin(t * .4 + d.ph) * d.dr, a = (.25 + .75 * (.5 + .5 * Math.sin(t * d.sp + d.ph))) * .55 * P(y, .1, 1.0); dust.fillStyle = `rgba(233,199,110,${a.toFixed(3)})`; dust.beginPath(); dust.arc(xx, yy, d.s, 0, 6.283); dust.fill(); }
+  op($('#glow'), P(y, .2, 1.8, E.s));
+  // Logo: soft wipe from the right, settle, then a light sweep
+  const lp = P(y, .25, 1.5, E.io), edge = lp * 124 - 12, logo = $('#logo');
+  logo.style.webkitMaskImage = logo.style.maskImage = `linear-gradient(to left,#000 ${edge.toFixed(2)}%,transparent ${(edge + 12).toFixed(2)}%)`;
+  $('#logoWrap').style.transform = `scale(${(1.06 - .06 * P(y, .25, 2.2, E.o) + .02 * P(y, 2.2, 10)).toFixed(4)})`;
+  const sh = P(y, 1.5, 2.5, E.io), sh2 = P(y, 6.2, 7.3, E.io), shine = $('#shine'), sp = sh > 0 && sh < 1 ? sh : sh2;
+  shine.style.backgroundPosition = `${(100 - sp * 100).toFixed(2)}% 0`; op(shine, sp > 0 && sp < 1 ? .9 : 0);
+  [['#brand', CUE.brand], ['#slogan', CUE.slogan], ['#rule', CUE.contact], ['#ctl', CUE.contact + .2], ['#num', CUE.contact + .5], ['#web', CUE.contact + .9], ['#loc', CUE.contact + 1.2]].forEach(([id, a]) => {
+    const p = P(t, a, a + .5, E.o), e = $(id); op(e, p); e.style.transform = id === '#rule' ? `scaleX(${p})` : `translateY(${((1 - p) * 22).toFixed(1)}px)`;
+  });
+}
+
+// ---------- Stage titles, narrator text, captions ----------
+$('#bars').innerHTML = AD.labels.map(() => '<i><b></b></i>').join('');
+function renderLabels(t) {
+  const i = AD.labels.findIndex(l => t >= l.a && t < l.b), on = i >= 0;
+  const first = AD.labels[0], last = AD.labels[AD.labels.length - 1];
+  const vis = Math.min(P(t, first.a, first.a + .2), 1 - P(t, last.b - .2, last.b));
+  op($('#stg'), on ? vis : 0);
+  // Narrator's first phrase sits over the drawing
+  const v1 = P(t, CUE.vo1, CUE.vo1 + .45, E.o), v1o = v1 * (1 - P(t, CUE.vo2 - .4, CUE.vo2 - .05));
+  op($('#vo1'), v1o); $('#vo1').style.transform = `translateY(${(1 - v1) * 24}px)`;
+  op($('#topShade'), Math.max(on ? vis : 0, v1o));
+  if (!on) return;
+  const l = AD.labels[i];
+  $('#stgN').textContent = '0' + (i + 1) + ' / 0' + AD.labels.length; $('#stgT').textContent = l.text;
+  op($('#stgT'), P(t, l.a, l.a + .15)); $('#stgT').style.transform = `translateY(${(1 - P(t, l.a, l.a + .2, E.o)) * 14}px)`;
+  [...document.querySelectorAll('#bars b')].forEach((b, k) => { b.style.width = (k < i ? 100 : k === i ? P(t, l.a, l.b) * 100 : 0) + '%'; });
+}
+const capEl = $('#cap'), txtEl = $('#capTxt'); let capIdx = -2;
+function renderCap(t) {
+  const i = CAPS.findIndex(c => t >= c.a && t < c.b);
+  if (i < 0) { op(capEl, 0); op($('#capBg'), 0); return; }
+  const c = CAPS[i];
+  if (i !== capIdx) { capIdx = i; capEl.className = c.long ? 'long' : ''; txtEl.innerHTML = c.text.split(' ').map(w => `<span>${w}</span>`).join(' '); }
+  const vis = Math.min(P(t, c.a, c.a + .2), 1 - P(t, c.b - .2, c.b));
+  op(capEl, vis); op($('#capBg'), vis);
+  // Words appear with the speech
+  const spans = txtEl.children, n = spans.length, s0 = c.sa - .12, spanT = (c.sb - s0) * .85;
+  for (let k = 0; k < n; k++) { const a = s0 + spanT * k / n, p = P(t, a, a + .25, E.o); op(spans[k], p); spans[k].style.transform = `translateY(${((1 - p) * 10).toFixed(1)}px)`; }
+}
+
+window.renderAt = async function (t) {
+  const s = SEGS.find(x => t >= x.t0 && t < x.t1) || SEGS[SEGS.length - 1];
+  // Footage frame for this moment (frozen and softened behind the phone, frozen under the finale dissolve)
+  if (s.type === 'clip') await setPlate(frameAt(s.src[0] + (t - s.t0) * s.speed));
+  else if (s.freeze !== undefined) await setPlate(frameAt(s.freeze - .05), s.type === 'phone' ? 14 : 0);
+  show(plate, s.type !== 'brand');
+  if (s.type !== 'phone') op($('#plateDim'), 0);
+  renderPhone(t, s.type === 'phone' ? s : null); renderFinale(t); renderBrand(t); renderLabels(t); renderCap(t);
+  op($('#black'), Math.max(1 - P(t, 0, .5, E.s), P(t, AD.duration - .7, AD.duration - .1, E.s)));
+};
+
+(async () => {
+  await Promise.all(['700 20px Amiri', '800 20px Tajawal', '700 20px Tajawal', '500 20px Tajawal', '400 20px Tajawal'].map(f => document.fonts.load(f, 'بيتنا 0123 +')));
+  await Promise.all([...document.images].filter(i => i.src).map(i => i.decode().catch(() => {})));
+  await window.renderAt(0); window.filmReady = true;
+})();
+</script>
+</body>
+</html>

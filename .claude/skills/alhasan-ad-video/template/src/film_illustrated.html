@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="ar">
+<head>
+<meta charset="utf-8">
+<title>حلم الرجعة — شركة الحسن</title>
+<link rel="stylesheet" href="../node_modules/@fontsource/tajawal/400.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/tajawal/500.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/tajawal/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/tajawal/800.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/amiri/700.css">
+<link rel="stylesheet" href="../node_modules/@fontsource/playpen-sans-arabic/500.css">
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;background:#000}
+#stage{position:relative;width:1080px;height:1920px;overflow:hidden;background:#000;font-family:'Tajawal',sans-serif;color:#fff}
+.scene{position:absolute;inset:0;overflow:hidden}
+
+/* Scene A: table, paper, drawing */
+#cam{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:0 0}
+#table{position:absolute;left:-140px;top:-140px;width:1360px;height:2400px}
+#tableSvg{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:visible}
+#paper{position:absolute;left:90px;top:230px;width:900px;height:1170px;transform:rotate(-2deg);box-shadow:0 34px 70px rgba(0,0,0,.55),0 5px 12px rgba(0,0,0,.35);border-radius:3px}
+#paperTex{position:absolute;inset:0;width:100%;height:100%;border-radius:3px}
+#draw{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+#cool{position:absolute;inset:0;background:#1d3158;mix-blend-mode:multiply;opacity:0}
+#lamp{position:absolute;inset:0;background:radial-gradient(ellipse 82% 62% at 50% 44%,rgba(255,206,132,.18) 0%,rgba(255,196,120,.06) 36%,rgba(12,7,3,.5) 76%,rgba(4,2,1,.9) 100%)}
+#hope{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 44%,rgba(255,214,140,.5) 0%,rgba(255,200,120,.12) 50%,transparent 80%);mix-blend-mode:screen;opacity:0}
+#dim{position:absolute;inset:0;background:#000;opacity:0}
+
+/* Phone */
+#phone{position:absolute;left:230px;top:120px;width:620px;height:1270px;border-radius:84px;background:#0c0c0f;box-shadow:0 0 0 3px #3a3a40,0 0 0 9px #111114,0 50px 90px rgba(0,0,0,.7);transform-origin:50% 42%;display:none}
+#phone .screen{position:absolute;inset:16px;border-radius:68px;overflow:hidden;background:#0b1730}
+.isl{position:absolute;left:50%;top:18px;width:150px;height:40px;margin-left:-75px;border-radius:20px;background:#000;z-index:5}
+.status{position:absolute;left:0;right:0;top:0;height:76px;z-index:4;font:700 25px Tajawal;display:flex;justify-content:space-between;align-items:center;padding:10px 46px 0;direction:ltr}
+.status i{display:inline-block;width:42px;height:20px;border-radius:6px;border:2px solid currentColor;position:relative;opacity:.9}
+.status i::after{content:"";position:absolute;left:2px;top:2px;bottom:2px;width:24px;border-radius:2px;background:currentColor}
+.scr{position:absolute;inset:0}
+#scrSearch{background:#f3f5f9;color:#15171c;direction:rtl}
+.sbar{position:absolute;top:96px;left:26px;right:26px;height:84px;border-radius:42px;background:#fff;box-shadow:0 4px 18px rgba(20,30,60,.12);display:flex;align-items:center;padding:0 30px;font:500 32px Tajawal;gap:16px}
+.sbar svg{flex:none}
+.caret{display:inline-block;width:3px;height:38px;background:#2b6fe0;margin-inline-start:3px;vertical-align:middle}
+.tabs{position:absolute;top:206px;left:34px;right:34px;display:flex;gap:34px;font:500 25px Tajawal;color:#7b8190}
+.tabs b{color:#1b62d9;border-bottom:4px solid #1b62d9;padding-bottom:8px}
+#resWrap{position:absolute;top:262px;left:0;right:0;bottom:0;overflow:hidden}
+#res{position:absolute;left:24px;right:24px;top:12px}
+.card{position:relative;display:flex;gap:22px;align-items:center;background:#fff;border-radius:28px;padding:20px;margin-bottom:22px;box-shadow:0 3px 14px rgba(20,30,60,.08);height:216px}
+.card .th{width:176px;height:176px;border-radius:20px;flex:none;overflow:hidden;background:#dfe6f2;display:flex;align-items:center;justify-content:center}
+.card .th svg{width:100%;height:100%;display:block}
+.card h4{margin:0 0 10px;font:700 30px/1.35 Tajawal}
+.card p{margin:0;font:400 24px Tajawal;color:#6d7483}
+.card.hasan .th{background:#060607}
+.card.hasan .th img{width:132px}
+.card.hasan .ring{position:absolute;inset:-5px;border-radius:33px;border:5px solid #d4af37;opacity:0}
+#ripple{position:absolute;width:150px;height:150px;margin:-75px 0 0 -75px;border-radius:50%;background:rgba(30,40,70,.35);opacity:0;left:300px;top:0}
+#scrCall{background:radial-gradient(ellipse 100% 70% at 50% 30%,#16294f 0%,#0b1730 70%);opacity:0;direction:rtl;text-align:center}
+#scrCall .status{color:#fff}
+#scrSearch .status{color:#15171c}
+#callUI{position:absolute;inset:0}
+.rg{position:absolute;left:50%;top:345px;border-radius:50%;border:2px solid #d4af37;opacity:0}
+.ava{position:absolute;left:50%;top:230px;width:230px;height:230px;margin-left:-115px;border-radius:50%;background:#050506;box-shadow:0 0 0 3px #d4af37,0 16px 40px rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center}
+.ava img{width:160px}
+.cname{position:absolute;top:500px;left:0;right:0;font:800 46px Tajawal}
+.csub{position:absolute;top:566px;left:0;right:0;font:500 28px Tajawal;color:#E3BE5A}
+#cstat{position:absolute;top:632px;left:0;right:0;font:500 28px Tajawal;color:#aeb9d0;direction:rtl}
+#wave{position:absolute;top:740px;left:60px;right:60px;height:160px;display:flex;align-items:center;justify-content:center;gap:9px;direction:ltr}
+#wave i{display:block;width:8px;height:10px;border-radius:4px;background:#d4af37}
+.ctrls{position:absolute;bottom:92px;left:0;right:0;display:flex;justify-content:center;gap:54px}
+.ctrls span{width:104px;height:104px;border-radius:50%;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center}
+.ctrls .end{background:#e5484d}
+
+/* Scene B: project site */
+#scB{background:radial-gradient(ellipse 95% 62% at 50% 38%,#14284f 0%,#0b1730 50%,#060c1a 100%);display:none}
+#site{position:absolute;left:0;top:0;width:1080px;height:1920px;transform-origin:0 0}
+.big{position:absolute;left:50px;right:50px;top:232px;text-align:center;direction:rtl}
+.tag{display:inline-block;font:700 26px Tajawal;color:#E3BE5A;padding:5px 22px;border:1.5px solid rgba(212,175,55,.55);border-radius:30px;opacity:0}
+#ownerTxt .l{position:absolute;left:0;right:0;top:74px;font:800 66px/1.42 Tajawal;opacity:0;text-shadow:0 4px 30px rgba(3,8,20,.9)}
+#ownerTxt b,#vo b{color:#EBCB6E}
+#stg{position:absolute;left:0;right:0;top:238px;text-align:center;direction:rtl;opacity:0}
+#stgN{font:800 30px Tajawal;color:#E3BE5A;letter-spacing:6px;direction:ltr}
+#stgT{font:800 70px/1.3 Tajawal;margin-top:6px}
+#bars{display:flex;gap:12px;justify-content:center;margin-top:22px;direction:rtl}
+#bars i{display:block;width:92px;height:5px;border-radius:3px;background:rgba(255,255,255,.16);overflow:hidden}
+#bars i b{display:block;height:100%;width:0;background:#E3BE5A;margin-inline-start:0}
+#vo{position:absolute;left:40px;right:40px;top:250px;text-align:center;direction:rtl}
+#vo .l{position:absolute;left:0;right:0;top:0;font:700 82px/1.5 Amiri;opacity:0;text-shadow:0 4px 30px rgba(3,8,20,.9)}
+#vo b{font-size:112px;line-height:1.3}
+#disc{position:absolute;left:0;right:0;top:1578px;text-align:center;font:400 23px Tajawal;color:rgba(255,255,255,.55);direction:rtl;opacity:0}
+
+/* Scene C: brand card */
+#scC{background:#030303;display:none}
+#glow{position:absolute;left:50%;top:610px;width:1400px;height:1400px;margin:-700px 0 0 -700px;background:radial-gradient(circle,rgba(212,175,55,.17) 0%,rgba(212,175,55,.05) 36%,transparent 66%)}
+#dust{position:absolute;inset:0}
+#logoWrap{position:absolute;left:190px;top:290px;width:700px;height:637px}
+#logo{position:absolute;inset:0;width:100%;height:100%}
+#shine{position:absolute;inset:0;-webkit-mask:url(../assets/logo.png) center/100% 100% no-repeat;mask:url(../assets/logo.png) center/100% 100% no-repeat;background:linear-gradient(105deg,transparent 42%,rgba(255,250,225,.9) 50%,transparent 58%) no-repeat;background-size:300% 100%;mix-blend-mode:screen;opacity:0}
+.c{position:absolute;left:0;right:0;text-align:center;direction:rtl;opacity:0}
+#brand{top:984px;font:800 58px Tajawal}
+#slogan{top:1074px;font:700 56px Amiri;color:#E3BE5A}
+#rule{top:1204px;left:50%;right:auto;width:440px;margin-left:-220px;height:2px;background:linear-gradient(90deg,transparent,#d4af37,transparent)}
+#ctl{top:1240px;font:500 34px Tajawal;color:#c4c4c4}
+#num{top:1306px;display:flex;align-items:center;justify-content:center;gap:26px;direction:ltr;font:800 76px Tajawal;letter-spacing:1px}
+#num svg{width:96px;height:64px;border-radius:8px;box-shadow:0 0 0 1.5px rgba(255,255,255,.35)}
+#loc{top:1432px;font:400 31px Tajawal;color:#a6a6a6}
+#loc span{direction:ltr;unicode-bidi:isolate;color:#d8d8d8;font-weight:500}
+
+/* Captions and overlays */
+#capBg{position:absolute;left:0;right:0;bottom:0;height:760px;background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.62) 45%,rgba(0,0,0,.8) 100%);opacity:0}
+#cap{position:absolute;left:60px;right:60px;bottom:268px;text-align:center;direction:rtl;opacity:0}
+#capWho{display:inline-block;font:700 25px Tajawal;color:#E3BE5A;margin-bottom:12px;padding:4px 20px;border:1.5px solid rgba(212,175,55,.55);border-radius:30px;background:rgba(0,0,0,.35)}
+#capTxt{font:500 54px/1.45 Tajawal;color:#f7f1e7;text-shadow:0 2px 16px rgba(0,0,0,.95),0 0 3px rgba(0,0,0,.7);text-wrap:balance}
+#capTxt span{display:inline-block}
+#cap.son #capTxt{font-family:'Playpen Sans Arabic';color:#FFD56B;font-size:50px}
+#cap.son #capWho{color:#FFD56B;border-color:rgba(255,213,107,.55)}
+#cap.long #capTxt{font-size:46px}
+#warm{position:absolute;inset:0;background:#F8E3B0;opacity:0}
+#black{position:absolute;inset:0;background:#000;opacity:1}
+</style>
+</head>
+<body>
+<div id="stage">
+
+  <div id="scA" class="scene">
+    <div id="cam">
+      <canvas id="table" width="1360" height="2400"></canvas>
+      <svg id="tableSvg" viewBox="0 0 1080 1920">
+        <defs><filter id="lieShadow" x="-50%" y="-50%" width="200%" height="200%"><feDropShadow dx="5" dy="9" stdDeviation="6" flood-opacity=".45"/></filter></defs>
+      </svg>
+      <div id="paper">
+        <canvas id="paperTex" width="1800" height="2340"></canvas>
+        <svg id="draw" viewBox="0 0 900 1170">
+          <defs>
+            <filter id="crayon" filterUnits="userSpaceOnUse" x="0" y="0" width="900" height="1170">
+              <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="2" seed="3" result="warp"/>
+              <feDisplacementMap in="SourceGraphic" in2="warp" scale="6" xChannelSelector="R" yChannelSelector="G" result="d"/>
+              <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="8" result="grain"/>
+              <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  2.6 0 0 0 -0.42" result="ga"/>
+              <feComposite in="d" in2="ga" operator="in"/>
+            </filter>
+            <filter id="crayonTxt" filterUnits="userSpaceOnUse" x="0" y="0" width="900" height="1170">
+              <feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="2" seed="5" result="warp"/>
+              <feDisplacementMap in="SourceGraphic" in2="warp" scale="2.5" xChannelSelector="R" yChannelSelector="G" result="d"/>
+              <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed="2" result="grain"/>
+              <feColorMatrix in="grain" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3.2 0 0 0 -0.3" result="ga"/>
+              <feComposite in="d" in2="ga" operator="in"/>
+            </filter>
+            <filter id="penShadow" x="-80%" y="-80%" width="260%" height="260%"><feDropShadow dx="12" dy="16" stdDeviation="9" flood-opacity=".35"/></filter>
+            <clipPath id="roofClip"><polygon points="218,586 452,344 684,582"/></clipPath>
+            <clipPath id="txt1Clip"><rect id="txt1Rect" x="0" y="726" width="0" height="64"/></clipPath>
+            <clipPath id="txt2Clip"><rect id="txt2Rect" x="0" y="790" width="0" height="64"/></clipPath>
+          </defs>
+          <g id="gCrayon" filter="url(#crayon)">
+            <g id="gGround"></g><g id="gHouse"></g><g id="gSun"></g><g id="gDoor"></g><g id="gExtra"></g>
+          </g>
+          <g id="gTxt" filter="url(#crayonTxt)" font-family="Playpen Sans Arabic" font-weight="500" font-size="38" fill="#2747B0" text-anchor="middle" direction="rtl">
+            <text x="548" y="768" clip-path="url(#txt1Clip)">بيتنا</text>
+            <text x="548" y="830" clip-path="url(#txt2Clip)">بسوريا</text>
+          </g>
+          <g id="pen" filter="url(#penShadow)"></g>
+        </svg>
+      </div>
+    </div>
+    <div id="cool"></div>
+    <div id="lamp"></div>
+    <div id="hope"></div>
+    <div id="dim"></div>
+  </div>
+
+  <div id="phone">
+    <div class="screen">
+      <div class="isl"></div>
+      <div id="scrSearch" class="scr">
+        <div class="status"><span>9:41</span><i></i></div>
+        <div class="sbar">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#7b8190" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M16.5 16.5L21 21"/></svg>
+          <div><span id="q"></span><span class="caret" id="caret"></span></div>
+        </div>
+        <div class="tabs"><b>الكل</b><span>عقارات</span><span>صور</span><span>خرائط</span></div>
+        <div id="resWrap"><div id="res"></div><div id="ripple"></div></div>
+      </div>
+      <div id="scrCall" class="scr">
+        <div class="status"><span>9:42</span><i></i></div>
+        <div id="callUI">
+          <div class="rg"></div><div class="rg"></div><div class="rg"></div>
+          <div class="ava"><img src="../assets/logo.png"></div>
+          <div class="cname">شركة الحسن</div>
+          <div class="csub">للهندسة والبناء</div>
+          <div id="cstat"></div>
+          <div id="wave"></div>
+          <div class="ctrls">
+            <span><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></svg></span>
+            <span class="end"><svg width="50" height="50" viewBox="0 0 24 24" fill="#fff"><path d="M3 13.5c5-4.5 13-4.5 18 0l-2.2 2.6-3.3-1.6v-2.3a9 9 0 00-7 0v2.3l-3.3 1.6z"/></svg></span>
+            <span><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9z"/><path d="M16.5 8.5a5 5 0 010 7"/></svg></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="scB" class="scene">
+    <svg id="site" viewBox="0 0 1080 1920"></svg>
+    <div id="ownerTxt" class="big">
+      <div class="tag" id="owTag">صاحب شركة الحسن</div>
+      <div class="l" id="ow1">نحنا بشركة الحسن<br>مو بس عم نبني شقق…</div>
+      <div class="l" id="ow2">عم نساعد أهلنا يحققوا<br><b>حلم الرجعة.</b></div>
+    </div>
+    <div id="stg"><div id="stgN"></div><div id="stgT"></div><div id="bars"><i><b></b></i><i><b></b></i><i><b></b></i><i><b></b></i></div></div>
+    <div id="vo">
+      <div class="l" id="vo1">في بيوت منشتريها<br>حتى نسكن فيها…</div>
+      <div class="l" id="vo2">وفي بيوت منبني عليها<br><b>حلم الرجعة.</b></div>
+    </div>
+    <div id="disc">مشاهد توضيحية بالذكاء الاصطناعي</div>
+  </div>
+
+  <div id="scC" class="scene">
+    <div id="glow"></div>
+    <canvas id="dust" width="1080" height="1920"></canvas>
+    <div id="logoWrap"><img id="logo" src="../assets/logo.png"><div id="shine"></div></div>
+    <div class="c" id="brand">شركة الحسن للهندسة والبناء</div>
+    <div class="c" id="slogan">من أرض المشروع… منبني الثقة.</div>
+    <div class="c" id="rule"></div>
+    <div class="c" id="ctl">للاستفسار والتواصل</div>
+    <div class="c" id="num"><svg id="flag" viewBox="0 0 90 60"></svg><span>+963 947 728 079</span></div>
+    <div class="c" id="loc">من داخل سوريا: <span>0947 728 079</span></div>
+  </div>
+
+  <div id="warm"></div>
+  <div id="capBg"></div>
+  <div id="cap"><div id="capWho"></div><div id="capTxt"></div></div>
+  <div id="black"></div>
+</div>
+
+<script src="timeline.js"></script>
+<script>
+// ---------- Timeline (seconds) lives in timeline.js, shared with the music script ----------
+const T = TL.T, CAPS = TL.CAPS, CUE = TL.CUES;
+const WHO = { father: 'الأب', son: 'الابن', co: 'صاحب شركة الحسن' };
+window.DURATION = T.end;
+
+// ---------- Helpers ----------
+const $ = s => document.querySelector(s);
+const NS = 'http://www.w3.org/2000/svg';
+const clamp = (x, a = 0, b = 1) => Math.min(b, Math.max(a, x));
+const lerp = (a, b, x) => a + (b - a) * x;
+const E = { l: x => x, s: x => x * x * (3 - 2 * x), i: x => x * x * x, o: x => 1 - Math.pow(1 - x, 3), io: x => x < .5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2 };
+const P = (t, a, b, e = E.l) => e(clamp((t - a) / (b - a)));
+function rng(seed) { let a = seed >>> 0; return () => { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+function el(tag, attrs = {}, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+const show = (e, on) => { e.style.display = on ? 'block' : 'none'; };
+const op = (e, v) => { e.style.opacity = v; };
+
+// Stroke that can be drawn on progressively
+function mkStroke(parent, d, color, w, extra = {}) {
+  return el('path', { d, fill: 'none', stroke: color, 'stroke-width': w, 'stroke-linecap': 'round', 'stroke-linejoin': 'round', pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1, ...extra }, parent);
+}
+function setP(path, p) { path.setAttribute('stroke-dashoffset', (1 - p).toFixed(4)); path.style.visibility = p <= 0.0005 ? 'hidden' : 'visible'; }
+
+// Hand-drawn polyline: subdivides segments and jitters the points
+function hand(pts, seed, j = 3, step = 46) {
+  const r = rng(seed), out = [];
+  for (let i = 0; i < pts.length - 1; i++) {
+    const [x0, y0] = pts[i], [x1, y1] = pts[i + 1], n = Math.max(1, Math.round(Math.hypot(x1 - x0, y1 - y0) / step));
+    for (let k = 0; k < n; k++) { const u = k / n, jj = k ? j : j * .4; out.push([x0 + (x1 - x0) * u + (r() - .5) * 2 * jj, y0 + (y1 - y0) * u + (r() - .5) * 2 * jj]); }
+  }
+  out.push(pts[pts.length - 1]);
+  return 'M' + out.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('L');
+}
+function zigzag(x0, x1, y0, y1, rows, seed) {
+  const r = rng(seed), pts = [];
+  for (let i = 0; i <= rows; i++) { const y = lerp(y0, y1, i / rows); pts.push([(i % 2 ? x1 : x0) + (r() - .5) * 24, y + (r() - .5) * 8]); }
+  return 'M' + pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('L');
+}
+function ring(cx, cy, rad, seed, a0 = -100, sweep = 395) {
+  const r = rng(seed), pts = [];
+  for (let a = 0; a <= sweep; a += 14) { const th = (a0 + a) * Math.PI / 180, rr = rad + (r() - .5) * 5; pts.push([cx + Math.cos(th) * rr, cy + Math.sin(th) * rr]); }
+  return 'M' + pts.map(p => p[0].toFixed(1) + ',' + p[1].toFixed(1)).join('L');
+}
+
+// ---------- Scene A: textures ----------
+(function woodTexture() {
+  const cv = $('#table'), c = cv.getContext('2d'), W = cv.width, H = cv.height, r = rng(11);
+  const g = c.createLinearGradient(0, 0, W, H); g.addColorStop(0, '#5d3d27'); g.addColorStop(.45, '#472c1b'); g.addColorStop(1, '#2e1c11'); c.fillStyle = g; c.fillRect(0, 0, W, H);
+  for (let i = 0; i < 1100; i++) {
+    const y = r() * H, a = .03 + r() * .07, amp = 2 + r() * 9, f = .002 + r() * .004, ph = r() * 6;
+    c.strokeStyle = r() < .55 ? `rgba(20,10,4,${a})` : `rgba(255,210,160,${a * .5})`; c.lineWidth = .6 + r() * 2.4; c.beginPath(); c.moveTo(-20, y);
+    for (let x = 20; x < W + 40; x += 40) c.lineTo(x, y + Math.sin(x * f + ph) * amp); c.stroke();
+  }
+  for (let k = 1; k < 6; k++) { const y = k * H / 6 + (r() - .5) * 40; c.fillStyle = 'rgba(10,5,2,.4)'; c.fillRect(0, y, W, 3); c.fillStyle = 'rgba(255,220,180,.05)'; c.fillRect(0, y + 3, W, 2); }
+})();
+(function paperTexture() {
+  const cv = $('#paperTex'), c = cv.getContext('2d'), W = cv.width, H = cv.height, r = rng(5);
+  c.fillStyle = '#F4EBDC'; c.fillRect(0, 0, W, H);
+  for (let i = 0; i < 60000; i++) { const a = r() * .05; c.fillStyle = r() < .6 ? `rgba(120,95,60,${a})` : `rgba(255,255,255,${a * 1.6})`; c.fillRect(r() * W, r() * H, 1 + r() * 2.4, 1 + r() * 2.4); }
+  for (let i = 0; i < 500; i++) { c.strokeStyle = `rgba(140,115,80,${.03 + r() * .04})`; c.lineWidth = 1; const x = r() * W, y = r() * H, l = 14 + r() * 50, an = r() * 6.28; c.beginPath(); c.moveTo(x, y); c.lineTo(x + Math.cos(an) * l, y + Math.sin(an) * l); c.stroke(); }
+  const g = c.createRadialGradient(W / 2, H / 2, W * .3, W / 2, H / 2, W * .9); g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(90,60,30,.12)'); c.fillStyle = g; c.fillRect(0, 0, W, H);
+})();
+
+// ---------- Scene A: crayons ----------
+function crayon(parent, color, len = 170) {
+  const g = el('g', {}, parent);
+  el('rect', { x: -13, y: -(len + 26), width: 26, height: len, rx: 5, fill: color }, g);
+  el('rect', { x: -13, y: -(len - 6), width: 26, height: len - 72, fill: 'rgba(255,255,255,.26)' }, g);
+  el('rect', { x: -13, y: -(len - 6), width: 26, height: 5, fill: 'rgba(0,0,0,.2)' }, g);
+  el('rect', { x: -13, y: -84, width: 26, height: 5, fill: 'rgba(0,0,0,.2)' }, g);
+  el('polygon', { points: '-11,-26 11,-26 3.5,0 -3.5,0', fill: color }, g);
+  el('polygon', { points: '-11,-26 11,-26 3.5,0 -3.5,0', fill: 'rgba(0,0,0,.16)' }, g);
+  el('rect', { x: -13, y: -(len + 26), width: 8, height: len, rx: 4, fill: 'rgba(255,255,255,.2)' }, g);
+  return g;
+}
+const C = { green: '#4E9A45', body: '#C4622D', red: '#D23A30', blue: '#2D6BCB', sun: '#EFA21A', door: '#7B4A27', ink: '#2747B0' };
+[[900, 170, 104, C.red], [968, 196, 78, C.blue], [846, 214, 121, C.green], [150, 150, 62, C.sun], [86, 228, 80, C.door]].forEach(([x, y, a, col]) => {
+  const g = crayon($('#tableSvg'), col, 150); g.setAttribute('transform', `translate(${x},${y}) rotate(${a})`); g.setAttribute('filter', 'url(#lieShadow)');
+});
+const pen = $('#pen'), penG = crayon(pen, C.green, 168), penParts = [...penG.children].filter(n => n.getAttribute('fill') && n.getAttribute('fill')[0] === '#');
+
+// ---------- Scene A: the drawing ----------
+const PEN = [];   // everything the moving crayon follows: {a,b,at(p),color}
+const STROKES = [];
+function stroke(group, d, color, w, a, b, extra) {
+  const p = mkStroke($(group), d, color, w, extra); const s = { el: p, a, b, color, len: 0 }; s.at = q => { const pt = p.getPointAtLength(s.len * q); return [pt.x, pt.y]; };
+  STROKES.push(s); PEN.push(s); return p;
+}
+// Scene 1: ground, walls, roof, window, sun
+stroke('#gGround', hand([[40, 912], [230, 902], [450, 909], [660, 899], [862, 907]], 21, 3, 60), C.green, 14, T.s1 + .7, T.s1 + 1.4);
+stroke('#gHouse', hand([[258, 904], [252, 578], [648, 572], [652, 904]], 22), C.body, 12, T.s1 + 1.5, T.s1 + 3.0);
+stroke('#gHouse', hand([[212, 588], [452, 338], [690, 584], [210, 590]], 23), C.red, 12, T.s1 + 3.1, T.s1 + 4.3);
+stroke('#gHouse', zigzag(232, 672, 362, 580, 11, 24), C.red, 24, T.s1 + 4.35, T.s1 + 5.35, { 'clip-path': 'url(#roofClip)', opacity: .5 });
+stroke('#gHouse', hand([[310, 655], [312, 762], [420, 760], [418, 652], [308, 656]], 25, 2.5), C.blue, 10, T.s1 + 5.5, T.s1 + 6.15);
+stroke('#gHouse', hand([[365, 656], [366, 760]], 26, 2), C.blue, 8, T.s1 + 6.2, T.s1 + 6.38);
+stroke('#gHouse', hand([[312, 707], [419, 706]], 27, 2), C.blue, 8, T.s1 + 6.42, T.s1 + 6.6);
+stroke('#gSun', ring(742, 188, 62, 28), C.sun, 12, T.s1 + 6.75, T.s1 + 7.3);
+stroke('#gSun', [...Array(8)].map((_, k) => { const th = (k * 45 + 8) * Math.PI / 180; return `M${(742 + Math.cos(th) * 84).toFixed(1)},${(188 + Math.sin(th) * 84).toFixed(1)}L${(742 + Math.cos(th) * 126).toFixed(1)},${(188 + Math.sin(th) * 126).toFixed(1)}`; }).join(''), C.sun, 10, T.s1 + 7.3, T.s1 + 7.85);
+// Scene 9: door, the writing, sun face, heart
+stroke('#gDoor', hand([[462, 904], [460, 690], [634, 686], [636, 904]], 31, 2.5), C.door, 11, T.s9 + 2.6, T.s9 + 3.55);
+stroke('#gDoor', ring(484, 872, 7, 32, 0, 400), C.door, 8, T.s9 + 3.6, T.s9 + 3.82);
+const TXT = [{ rect: $('#txt1Rect'), x0: 500, x1: 598, base: 768, a: T.s9 + 4.0, b: T.s9 + 4.9 }, { rect: $('#txt2Rect'), x0: 480, x1: 618, base: 830, a: T.s9 + 5.0, b: T.s9 + 6.1 }];
+TXT.forEach(x => PEN.push({ a: x.a, b: x.b, color: C.ink, rot: -34, at: p => [x.x1 - (x.x1 - x.x0) * p, x.base - 18 + Math.sin(p * 40) * 9] }));
+stroke('#gExtra', 'M722,170L722,182M762,170L762,182', '#B5561A', 9, T.s9 + 6.5, T.s9 + 6.75);
+stroke('#gExtra', 'M710,200Q742,236 774,200', '#B5561A', 9, T.s9 + 6.85, T.s9 + 7.35);
+stroke('#gExtra', 'M300,292C262,258 232,224 258,200C280,182 298,198 300,214C302,198 320,182 342,200C368,224 338,258 300,292', C.red, 10, T.s9 + 7.55, T.s9 + 8.3);
+PEN.sort((x, y) => x.a - y.a);
+const PEN_SESS = [[T.s1 + .5, T.s1 + 8.1], [T.s9 + 2.2, T.s9 + 8.6]];
+
+// Paper coords -> stage coords (paper is rotated -2deg about its centre)
+function p2s(px, py) { const a = -2 * Math.PI / 180, dx = px - 450, dy = py - 585; return [540 + dx * Math.cos(a) - dy * Math.sin(a), 815 + dx * Math.sin(a) + dy * Math.cos(a)]; }
+const HOUSE = [450, 640], DOOR = [548, 792];
+// Camera keyframes: [time, focus (paper), where it lands on screen, scale, ease into this key]
+const CAMKEYS = [
+  [T.s1, HOUSE, [540, 870], 1.00, E.l], [T.s3, HOUSE, [540, 870], 1.06, E.l], [T.s4, HOUSE, [540, 880], 1.17, E.s],
+  [T.s4 + 1.4, HOUSE, [540, 880], 1.24, E.io], [T.s4 + 2.6, HOUSE, [540, 800], 0.92, E.io], [T.s7 + 1.3, HOUSE, [540, 800], 0.92, E.l],
+  [T.s9, HOUSE, [540, 870], 1.02, E.l], [T.s9 + 1.2, HOUSE, [540, 870], 1.05, E.l], [T.s9 + 2.5, DOOR, [540, 900], 2.15, E.io],
+  [T.s9 + 6.2, DOOR, [540, 886], 2.3, E.l], [T.s9 + 8.2, HOUSE, [540, 900], 1.12, E.io], [T.s10 + 2, HOUSE, [540, 900], 1.12, E.l],
+];
+function camA(t) {
+  let i = 0; while (i < CAMKEYS.length - 2 && t >= CAMKEYS[i + 1][0]) i++;
+  const A = CAMKEYS[i], B = CAMKEYS[i + 1], p = B[4](clamp((t - A[0]) / (B[0] - A[0])));
+  return { f: [lerp(A[1][0], B[1][0], p), lerp(A[1][1], B[1][1], p)], c: [lerp(A[2][0], B[2][0], p), lerp(A[2][1], B[2][1], p)], s: lerp(A[3], B[3], p) };
+}
+
+const scA = $('#scA'), cam = $('#cam'), gHouse = $('#gHouse'), gSun = $('#gSun'), gGround = $('#gGround');
+function renderA(t) {
+  const on = t < T.s7 + 1.25 || (t >= T.s9 - .05 && t < T.s10 + .7);
+  show(scA, on); if (!on) return;
+  // Camera
+  const k = camA(t), f = p2s(k.f[0], k.f[1]);
+  cam.style.transform = `translate(${(k.c[0] - k.s * f[0]).toFixed(2)}px,${(k.c[1] - k.s * f[1]).toFixed(2)}px) scale(${k.s.toFixed(4)})`;
+  // Mood: the house fades to a ghost after the father's line, returns in scene 9
+  const ghost = t < T.s9 ? P(t, T.s2 + 1.4, T.s2 + 3.6, E.s) : 1 - P(t, T.s9 + .5, T.s9 + 1.8, E.s);
+  op(gHouse, 1 - ghost * .72); op(gSun, 1 - ghost * .5); op(gGround, 1 - ghost * .35);
+  op($('#cool'), ghost * .45);
+  op($('#hope'), t >= T.s9 ? P(t, T.s9 + .5, T.s9 + 2.2, E.s) * .55 : 0);
+  op($('#dim'), t < T.s9 ? P(t, T.s4 + 1.6, T.s4 + 2.7) * .4 : 0);
+  op(scA, t >= T.s9 ? 1 - P(t, T.s10 - .4, T.s10 + .6, E.s) : 1);
+  // Strokes
+  for (const s of STROKES) setP(s.el, P(t, s.a, s.b, E.s));
+  for (const x of TXT) { const p = P(t, x.a, x.b), w = (x.x1 - x.x0 + 16) * p; x.rect.setAttribute('x', x.x1 + 8 - w); x.rect.setAttribute('width', w); }
+  // Moving crayon: follows the active stroke, glides between strokes
+  const sess = PEN_SESS.find(s => t >= s[0] && t <= s[1]);
+  if (!sess) { pen.style.display = 'none'; return; }
+  let cur = PEN.find(s => t >= s.a && t <= s.b), pos, color, lift = 0, rot = 32;
+  if (cur) { pos = cur.at(E.s(clamp((t - cur.a) / (cur.b - cur.a)))); color = cur.color; rot = cur.rot ?? 32; }
+  else {
+    const prev = [...PEN].reverse().find(s => s.b < t && s.b >= sess[0] - 1), next = PEN.find(s => s.a > t && s.a <= sess[1] + 1);
+    if (prev && next) { const q = E.s((t - prev.b) / (next.a - prev.b)), A = prev.at(1), B = next.at(0); pos = [lerp(A[0], B[0], q), lerp(A[1], B[1], q)]; color = q < .5 ? prev.color : next.color; lift = Math.sin(q * Math.PI); rot = lerp(prev.rot ?? 32, next.rot ?? 32, q); }
+    else if (next) { const B = next.at(0), q = P(t, sess[0], next.a, E.o); pos = [B[0] + (1 - q) * 260, B[1] + (1 - q) * 180]; color = next.color; lift = 1 - q; }
+    else { const A = prev.at(1), q = P(t, prev.b, sess[1], E.i); pos = [A[0] + q * 300, A[1] + q * 220]; color = prev.color; lift = q; }
+  }
+  pen.style.display = 'block';
+  op(pen, Math.min(P(t, sess[0], sess[0] + .3), 1 - P(t, sess[1] - .3, sess[1])));
+  penG.setAttribute('transform', `translate(${(pos[0] + lift * 6).toFixed(1)},${(pos[1] - lift * 14).toFixed(1)}) rotate(${(rot + Math.sin(t * 7) * 2.5).toFixed(2)})`);
+  penParts.forEach(n => n.setAttribute('fill', color));
+}
+
+// ---------- Phone ----------
+const phone = $('#phone');
+function thumb(sky1, sky2, tone, v) {
+  const r = rng(v * 97 + 3); let s = `<svg viewBox="0 0 176 176"><defs><linearGradient id="sk${v}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${sky1}"/><stop offset="1" stop-color="${sky2}"/></linearGradient></defs><rect width="176" height="176" fill="url(#sk${v})"/>`;
+  [[14, 60, 46], [66, 34, 54], [126, 74, 40]].forEach(([x, y, w], i) => {
+    y += Math.round(r() * 24); s += `<rect x="${x}" y="${y}" width="${w}" height="${176 - y}" fill="${tone[i % tone.length]}"/>`;
+    for (let yy = y + 10; yy < 166; yy += 16) for (let xx = x + 7; xx < x + w - 8; xx += 13) s += `<rect x="${xx}" y="${yy}" width="7" height="9" fill="rgba(255,255,255,${r() < .3 ? .85 : .35})"/>`;
+  });
+  return s + '<rect y="166" width="176" height="10" fill="rgba(0,0,0,.25)"/></svg>';
+}
+const CARDS = [
+  ['شقق للبيع في سوريا', 'عقارات · عروض متنوّعة', thumb('#9ec9f5', '#e8f2fc', ['#6f8fb5', '#56779e', '#88a4c4'], 1)],
+  ['مشاريع سكنية جديدة', 'حلب وريفها', thumb('#f6c38c', '#fdebd3', ['#b98a62', '#9c7150', '#caa07c'], 2)],
+  ['عقارات للمغتربين', 'شراء ومتابعة عن بُعد', thumb('#a9d8c8', '#e9f7f1', ['#5f9c8a', '#4a8473', '#7bb3a2'], 3)],
+  ['شقق قيد الإنشاء', 'ريف حلب الشمالي', thumb('#c6bdf0', '#efecfb', ['#8377b8', '#6c60a3', '#9a90c9'], 4)],
+  ['شركة الحسن للهندسة والبناء', 'شقق سكنية · حريتان', null],
+  ['شقق جاهزة للسكن', 'حلب', thumb('#f3b5b5', '#fdeaea', ['#b77a7a', '#a06464', '#c99494'], 6)],
+];
+const res = $('#res');
+CARDS.forEach(([h, p, th]) => {
+  const d = document.createElement('div'); d.className = 'card' + (th ? '' : ' hasan');
+  d.innerHTML = `<div class="th">${th || '<img src="../assets/logo.png">'}</div><div><h4>${h}</h4><p>${p}</p></div>${th ? '' : '<div class="ring"></div>'}`; res.appendChild(d);
+});
+const cards = [...res.children], hasanRing = $('.card.hasan .ring'), PITCH = 238, SCROLL = PITCH * 2.45;
+$('#ripple').style.top = (12 + PITCH * 4 + 108 - SCROLL) + 'px';
+const wave = $('#wave'); for (let i = 0; i < 27; i++) wave.appendChild(document.createElement('i'));
+const bars = [...wave.children], rings = [...document.querySelectorAll('.rg')], QUERY = 'شقق للبيع بسوريا';
+function renderPhone(t) {
+  const on = t >= T.s4 + 1.5 && t < T.s7 + 1.25; show(phone, on); if (!on) return;
+  // Slide in, later zoom through the screen into the site
+  const inP = P(t, T.s4 + 1.6, T.s4 + 2.7, E.o), z = P(t, T.s7 + .3, T.s7 + 1.2, E.i);
+  phone.style.transform = `translateY(${((1 - inP) * 1900).toFixed(1)}px) rotate(${((1 - inP) * 5).toFixed(2)}deg) scale(${(1 + z * 4.6).toFixed(4)})`;
+  // Search: typing, results, scroll, tap
+  const n = Math.floor(P(t, T.s4 + 3.0, T.s4 + 4.6) * QUERY.length + 1e-6);
+  $('#q').textContent = QUERY.slice(0, n); op($('#caret'), n < QUERY.length ? 1 : (Math.floor(t * 2) % 2 ? 0 : 1) * (t < T.s4 + 5 ? 1 : 0));
+  cards.forEach((c, i) => { const p = P(t, T.s4 + 4.9 + i * .12, T.s4 + 5.4 + i * .12, E.o); op(c, p); c.style.transform = `translateY(${((1 - p) * 40).toFixed(1)}px)`; });
+  res.style.transform = `translateY(${(-P(t, T.s4 + 6.0, T.s4 + 7.0, E.io) * SCROLL).toFixed(1)}px)`;
+  op(hasanRing, P(t, T.s4 + 7.0, T.s4 + 7.3));
+  const rp = P(t, T.s4 + 7.35, T.s4 + 7.85, E.o), rip = $('#ripple'); op(rip, rp > 0 && rp < 1 ? (1 - rp) * .6 : 0); rip.style.transform = `scale(${.3 + rp * 1.6})`;
+  // Call screen
+  op($('#scrCall'), P(t, T.s4 + 7.75, T.s4 + 8.2, E.s));
+  op($('#callUI'), 1 - P(t, T.s7, T.s7 + .45));
+  const connect = T.s5 + 2.0, ringing = t < connect;
+  $('#cstat').textContent = ringing ? 'جارٍ الاتصال' + '.'.repeat(1 + Math.floor(t * 2.2) % 3) : '00:' + String(Math.floor(t - connect)).padStart(2, '0');
+  rings.forEach((r, i) => { const ph = (t * .75 + i / 3) % 1, d = 236 + ph * 230; r.style.width = r.style.height = d + 'px'; r.style.margin = `${-d / 2}px 0 0 ${-d / 2}px`; op(r, ringing ? (1 - ph) * .55 : 0); });
+  // Voice bars follow whoever is speaking
+  const sp = CAPS.find(c => c.sa !== undefined && t >= c.sa - .1 && t < c.sb + .15), amp = sp ? Math.min(P(t, sp.sa - .1, sp.sa + .15), 1 - P(t, sp.sb - .1, sp.sb + .15)) : 0, col = sp && sp.who === 'co' ? '#E3BE5A' : '#cfd8ea';
+  bars.forEach((b, i) => {
+    const env = Math.sin((i + .5) / bars.length * Math.PI), v = .5 + .5 * Math.sin(t * (9 + i % 5 * 2.3) + i * 1.7), w = .6 + .4 * Math.sin(t * 3.3 + i * .45);
+    b.style.height = (8 + amp * env * v * w * 150).toFixed(1) + 'px'; b.style.background = col; op(b, ringing ? .25 : .95);
+  });
+}
+
+// ---------- Scene B: site ----------
+const site = $('#site'), GOLD = '#E3BE5A', GOLD2 = '#F3D98B', STEEL = '#F2A53A', CONC = '#9AA6B8';
+const GY = 1500, BX0 = 250, BX1 = 830, COLS = [250, 443, 637, 830], FH = 150, NF = 5, SLABX = BX0 - 24, SLABW = BX1 - BX0 + 48, TOPY = GY - NF * FH - 110;
+const fy = k => GY - k * FH;
+const sdefs = el('defs', {}, site);
+sdefs.innerHTML = `<pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"><path d="M60 0H0V60" fill="none" stroke="#fff" stroke-opacity=".05" stroke-width="1"/></pattern>
+<filter id="lglow" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+<linearGradient id="winLit" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFE7A6"/><stop offset="1" stop-color="#FFC25C"/></linearGradient>`;
+const clipRect = id => el('rect', { x: 0, y: 0, width: 1080, height: 0 }, el('clipPath', { id }, sdefs));
+const L = (x1, y1, x2, y2) => `M${x1},${y1}L${x2},${y2}`;
+const G = (attrs = {}, parent = site) => el('g', attrs, parent);
+const thin = { fill: 'none', stroke: GOLD, 'stroke-width': 2.5, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' };
+
+el('rect', { width: 1080, height: 1920, fill: 'url(#grid)' }, site);
+// Stars for the finale
+const gStars = G(); const STARS = []; { const r = rng(77); for (let i = 0; i < 70; i++) STARS.push({ e: el('circle', { cx: (r() * 1080).toFixed(0), cy: (40 + r() * 1150).toFixed(0), r: (.8 + r() * 1.6).toFixed(1), fill: '#fff' }, gStars), sp: 1 + r() * 2.5, ph: r() * 6.28 }); }
+// Ground line and hatching
+const gGroundB = G();
+const groundL = mkStroke(gGroundB, L(540, GY, 50, GY), GOLD, 3), groundR = mkStroke(gGroundB, L(540, GY, 1030, GY), GOLD, 3);
+const hatch = el('path', { d: [...Array(25)].map((_, i) => L(60 + i * 40, GY + 6, 44 + i * 40, GY + 22)).join(''), stroke: GOLD, 'stroke-width': 1.5, 'stroke-opacity': .4 }, gGroundB);
+// Dashed envelope of the future building
+const ghostClip = clipRect('ghostClip');
+const gGhost = G({ 'clip-path': 'url(#ghostClip)' });
+el('path', { d: `M${SLABX},${GY}V${fy(NF) - 40}H${SLABX + SLABW}V${GY}` + [1, 2, 3, 4, 5].map(k => L(SLABX, fy(k), SLABX + SLABW, fy(k))).join(''), fill: 'none', stroke: '#8fb0ea', 'stroke-width': 2, 'stroke-dasharray': '10 12', 'stroke-opacity': .55 }, gGhost);
+// Crane
+const gCrane = G(), mastClip = clipRect('mastClip'), MX = 940, JY = 560;
+const gMast = G({ 'clip-path': 'url(#mastClip)', ...thin }, gCrane);
+el('path', { d: L(MX - 16, GY, MX - 16, JY - 60) + L(MX + 16, GY, MX + 16, JY - 60) + [...Array(31)].map((_, i) => { const y = GY - i * 32; return L(MX - 16, y, MX + 16, y - 32) + L(MX - 16, y - 32, MX + 16, y - 32); }).join('') }, gMast);
+const gJib = G(thin, gCrane);
+el('path', { d: L(MX, JY, 500, JY) + L(MX, JY - 26, 520, JY - 26) + [...Array(14)].map((_, i) => { const x = MX - i * 30; return L(x, JY, x - 15, JY - 26) + L(x - 15, JY - 26, x - 30, JY); }).join('') + L(MX, JY, 1050, JY) + L(MX, JY - 86, 520, JY - 26) + L(MX, JY - 86, 1040, JY) + `M1000,${JY}h44v44h-44z` + `M${MX - 16},${JY + 4}h-40v40h40` }, gJib);
+const cable = el('path', { ...thin, 'stroke-width': 2 }, gCrane), hook = el('path', { ...thin }, gCrane);
+// Footings
+const gFoot = G(thin); COLS.forEach(c => el('rect', { x: c - 46, y: GY + 6, width: 92, height: 50, pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1, class: 'ft' }, gFoot));
+const feet = [...gFoot.children];
+// Stage 1: rebar cages
+const rebarClip = clipRect('rebarClip'), beamClip = clipRect('beamClip');
+const gRebar = G({ 'clip-path': 'url(#rebarClip)', fill: 'none', stroke: STEEL, 'stroke-width': 2.2 });
+el('path', { d: COLS.map(c => [-7, 0, 7].map(o => L(c + o, GY + 52, c + o, fy(1) + 12)).join('') + [...Array(8)].map((_, i) => L(c - 11, GY - 6 - i * 18, c + 11, GY - 6 - i * 18)).join('') + L(c - 40, GY + 20, c + 40, GY + 20) + L(c - 40, GY + 38, c + 40, GY + 38) + [...Array(6)].map((_, i) => L(c - 40 + i * 16, GY + 12, c - 40 + i * 16, GY + 46)).join('')).join('') }, gRebar);
+const gBeam = G({ 'clip-path': 'url(#beamClip)', fill: 'none', stroke: STEEL, 'stroke-width': 2.2 });
+el('path', { d: L(SLABX, fy(1) - 6, SLABX + SLABW, fy(1) - 6) + L(SLABX, fy(1) + 6, SLABX + SLABW, fy(1) + 6) + [...Array(40)].map((_, i) => L(SLABX + 4 + i * 16, fy(1) - 8, SLABX + 4 + i * 16, fy(1) + 8)).join('') }, gBeam);
+// Stage 2: concrete
+const concClip = clipRect('concClip'), slabClip = clipRect('slabClip');
+const gConc = G({ 'clip-path': 'url(#concClip)', fill: CONC, 'fill-opacity': .6 }); COLS.forEach(c => { el('rect', { x: c - 46, y: GY + 6, width: 92, height: 50 }, gConc); el('rect', { x: c - 12, y: fy(1), width: 24, height: FH + 6 }, gConc); });
+const gSlab1 = G({ 'clip-path': 'url(#slabClip)', fill: CONC, 'fill-opacity': .6 }); el('rect', { x: SLABX, y: fy(1) - 9, width: SLABW, height: 18 }, gSlab1);
+const gPump = G(thin), boom = el('path', {}, gPump), drops = [0, 1, 2].map(() => el('circle', { r: 4, fill: CONC, stroke: 'none' }, gPump));
+// Everything that makes up the finished building (revealed bottom-up in the finale)
+const riseClip = clipRect('riseClip');
+const gBuild = G({ 'clip-path': 'url(#riseClip)' });
+const floors = [];
+for (let k = 1; k <= NF; k++) {
+  const id = 'colClip' + k, cc = clipRect(id), gCols = G({ 'clip-path': `url(#${id})`, ...thin, fill: '#12244a' }, gBuild);
+  COLS.forEach(c => el('rect', { x: c - 12, y: fy(k), width: 24, height: FH }, gCols));
+  floors.push({ k, cc, gCols });
+}
+// Facade: walls, windows, balconies, entrance
+const gFacade = [], WINS = [];
+for (let k = 1; k <= NF; k++) {
+  const g = G({ ...thin, 'stroke-width': 2 }, gBuild); gFacade.push(g);
+  const top = fy(k) + 9, bot = fy(k - 1) - 9;
+  for (let b = 0; b < 3; b++) {
+    const x0 = COLS[b] + 12, x1 = COLS[b + 1] - 12, mid = (x0 + x1) / 2;
+    el('rect', { x: x0, y: top, width: x1 - x0, height: bot - top, fill: '#0f2146', stroke: 'none' }, g);
+    if (b === 1 && k === 1) { el('rect', { x: mid - 38, y: bot - 112, width: 76, height: 112, fill: '#0b1730' }, g); el('path', { d: L(mid, bot - 112, mid, bot) + L(mid - 58, bot - 122, mid + 58, bot - 122) }, g); WINS.push({ x: mid - 38, y: bot - 112, w: 76, h: 112, door: true }); continue; }
+    if (b === 1) {
+      WINS.push({ x: mid - 46, y: top + 22, w: 92, h: bot - top - 22 });
+      el('rect', { x: mid - 46, y: top + 22, width: 92, height: bot - top - 22, fill: '#0b1730' }, g);
+      el('path', { d: L(x0 + 8, bot - 44, x1 - 8, bot - 44) + [...Array(11)].map((_, i) => L(x0 + 8 + i * (x1 - x0 - 16) / 10, bot - 44, x0 + 8 + i * (x1 - x0 - 16) / 10, bot)).join('') }, g);
+      continue;
+    }
+    [x0 + 20, x1 - 20 - 54].forEach(x => { WINS.push({ x, y: top + 26, w: 54, h: 78 }); el('rect', { x, y: top + 26, width: 54, height: 78, fill: '#0b1730' }, g); el('path', { d: L(x + 27, top + 26, x + 27, top + 104) }, g); });
+  }
+}
+// Slabs sit above the facade so they read as floor lines
+for (const f of floors) f.slab = el('rect', { x: SLABX, y: fy(f.k) - 9, width: SLABW, height: 18, ...thin, fill: '#1a2f5c' }, gBuild);
+// Lit windows
+const gLights = G({ filter: 'url(#lglow)' }, gBuild);
+{ const r = rng(9), order = WINS.map((_, i) => i).sort(() => r() - .5); WINS.forEach((w, i) => { w.o = order.indexOf(i); w.e = el('rect', { x: w.x + 3, y: w.y + 3, width: w.w - 6, height: w.h - 6, fill: 'url(#winLit)', opacity: 0 }, gLights); w.skip = r() < .16; }); }
+const ZOOMWIN = WINS.find(w => Math.abs(w.x + w.w / 2 - 540) < 2 && Math.abs(w.y - (fy(3) + 31)) < 2);
+// Roof: parapet, water tanks, dish
+const gRoof = G(thin, gBuild);
+el('path', { d: `M${SLABX},${fy(NF) - 9}v-30h${SLABW}v30` + [310, 372].map(x => `M${x},${fy(NF) - 39}v-14M${x + 36},${fy(NF) - 39}v-14M${x - 4},${fy(NF) - 53}h44v-40h-44z`).join('') + `M748,${fy(NF) - 39}v-26M730,${fy(NF) - 84}a22,22 0 0 0 36,20z` }, gRoof);
+// Location pin
+const gPin = G(); el('ellipse', { cx: 0, cy: 0, rx: 34, ry: 9, fill: 'none', stroke: GOLD, 'stroke-width': 2, id: 'pinRing' }, gPin);
+const pinBody = G({}, gPin); el('path', { d: 'M0,0C-10,-34 -36,-52 -36,-88A36,36 0 1 1 36,-88C36,-52 10,-34 0,0Z', fill: GOLD }, pinBody); el('circle', { cx: 0, cy: -88, r: 14, fill: '#0b1730' }, pinBody);
+el('text', { x: 0, y: -148, 'text-anchor': 'middle', 'font-family': 'Tajawal', 'font-weight': 800, 'font-size': 46, fill: '#fff', direction: 'rtl' }, pinBody).textContent = 'حريتان';
+// Gold house for the finale (same geometry as the crayon house)
+const gGoldHouse = G({ fill: '#0b1730', stroke: '#FFE9A8', 'stroke-width': 6, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' });
+const goldParts = ['M255,902V576H648V902Z', 'M212,588L452,338L690,586Z', 'M310,655H420V762H310ZM365,655V762M310,708H420', 'M462,902V690H634V902M484,866V876'].map(d => el('path', { d, pathLength: 1, 'stroke-dasharray': 1, 'stroke-dashoffset': 1 }, gGoldHouse));
+
+const setClipUp = (r, yBot, yTop, p) => { r.setAttribute('y', yBot - (yBot - yTop) * p); r.setAttribute('height', (yBot - yTop) * p); };
+// Applies one full state of the site (all progress values 0..1)
+function setSite(s) {
+  setP(groundL, s.ground); setP(groundR, s.ground); op(hatch, s.ground);
+  op(gGhost, s.ghostO); setClipUp(ghostClip, GY, fy(NF) - 50, s.ghost);
+  op(gCrane, s.craneO); setClipUp(mastClip, GY + 4, JY - 70, s.mast);
+  gJib.setAttribute('transform', `translate(${MX},0) scale(${s.jib},1) translate(${-MX},0)`); op(gJib, s.jib > 0 ? 1 : 0);
+  cable.setAttribute('d', s.jib >= 1 ? L(s.hookX, JY, s.hookX, s.hookY) : ''); hook.setAttribute('d', s.jib >= 1 ? `M${s.hookX - 9},${s.hookY}h18l-9,14z` : '');
+  feet.forEach(f => f.setAttribute('stroke-dashoffset', 1 - s.foot)); op(gFoot, s.foot > 0 ? 1 : 0);
+  op(gRebar, s.rebarO); setClipUp(rebarClip, GY + 60, fy(1), s.rebar);
+  op(gBeam, s.rebarO); beamClip.setAttribute('height', 1920); beamClip.setAttribute('width', 1080 * s.beam);
+  op(gConc, s.concO); setClipUp(concClip, GY + 60, fy(1) - 10, s.conc);
+  op(gSlab1, s.concO); slabClip.setAttribute('height', 1920); slabClip.setAttribute('x', 1080 - 1080 * s.slab1); slabClip.setAttribute('width', 1080 * s.slab1);
+  op(gPump, s.pumpO);
+  if (s.pumpO > 0) { const nx = s.nozX; boom.setAttribute('d', `M1040,${GY}L1012,${GY - 250}L${nx + 90},${fy(1) - 150}L${nx},${fy(1) - 46}`); drops.forEach((d, i) => { const q = (s.time * 3 + i / 3) % 1; d.setAttribute('cx', nx); d.setAttribute('cy', fy(1) - 40 + q * 30); op(d, s.slab1 > 0 && s.slab1 < 1 ? 1 - q : 0); }); }
+  for (const f of floors) { const c = s.cols[f.k - 1], sl = s.slab[f.k - 1]; setClipUp(f.cc, fy(f.k - 1), fy(f.k), c); op(f.gCols, c > 0 ? 1 : 0); f.slab.setAttribute('transform', `translate(0,${(-(1 - sl) * (fy(f.k) - JY - 60)).toFixed(1)})`); op(f.slab, sl > 0 ? 1 : 0); }
+  gFacade.forEach((g, i) => op(g, s.fac[i]));
+  op(gRoof, s.roof);
+  WINS.forEach(w => op(w.e, w.skip ? 0 : s.light(w.o)));
+  op(gBuild, s.buildO); setClipUp(riseClip, GY + 80, TOPY, s.rise);
+}
+
+const scB = $('#scB');
+const STAGES = ['الحديد والتسليح', 'صبّ البيتون', 'الأعمدة والأسقف', 'الشقق من الداخل'], SD = 2.75;
+function renderB(t) {
+  const build = t >= T.s7 + .5 && t < T.s9 + .05, finale = t >= T.s10 - .45 && t < T.s11 + .5;
+  show(scB, build || finale); if (!(build || finale)) return;
+  const u = t - T.s7, v = t - T.s8, x = t - T.s10;
+  if (build) {
+    op(scB, P(u, .6, 1.2));
+    // Push into a lit window at the end of the build
+    const zp = P(v, 10.1, 11.0, E.i), zs = 1 + zp * 15, zx = ZOOMWIN.x + ZOOMWIN.w / 2, zy = ZOOMWIN.y + ZOOMWIN.h / 2;
+    site.style.transform = `translate(${(540 - zs * lerp(540, zx, zp)).toFixed(1)}px,${(960 - zs * lerp(960, zy, zp)).toFixed(1)}px) scale(${zs.toFixed(4)})`;
+    // Crane hook follows the slab that is being placed
+    let hookX = 700, hookY = 720; const cols = [], slab = [];
+    for (let k = 1; k <= NF; k++) {
+      if (k === 1) { cols.push(P(v, 4.2, 5.2, E.s)); slab.push(P(v, 5.0, 5.4)); continue; }
+      const s0 = 5.6 + (k - 2) * .64; cols.push(P(v, s0, s0 + .36, E.o)); const sl = P(v, s0 + .2, s0 + .64, E.o); slab.push(sl);
+      if (sl > 0 && sl < 1) { hookX = 540; hookY = fy(k) - 9 - (1 - sl) * (fy(k) - JY - 60) - 14; }
+    }
+    setSite({
+      time: t, ground: P(u, 1.0, 2.2, E.io), ghost: P(u, 3.0, 5.0, E.io), ghostO: 1 - P(v, 5.6, 8.2),
+      mast: P(u, 4.4, 6.2, E.io), jib: P(u, 6.0, 7.2, E.io), craneO: 1 - P(v, 8.4, 9.4) * .8, hookX, hookY,
+      foot: P(u, 5.6, 7.4, E.io), rebar: P(v, .15, 1.9, E.io), beam: P(v, 1.5, 2.6, E.io), rebarO: (v > 0 ? 1 : 0) * (1 - P(v, 3.0, 4.8) * .9) * (1 - P(v, 8.2, 8.8)),
+      conc: P(v, 2.95, 4.2, E.s), slab1: P(v, 4.0, 5.3), concO: 1 - P(v, 4.6, 5.4) * .0, pumpO: Math.min(P(v, 2.8, 3.2), 1 - P(v, 5.3, 5.7)), nozX: lerp(SLABX + SLABW - 20, SLABX + 20, P(v, 4.0, 5.3)),
+      cols, slab, fac: [1, 2, 3, 4, 5].map(k => P(v, 8.3 + (k - 1) * .16, 8.8 + (k - 1) * .16, E.s)), roof: P(v, 9.1, 9.7),
+      light: o => P(v, 9.3 + o * .04, 9.55 + o * .04), buildO: 1, rise: 1,
+    });
+    op(gStars, 0); op(gGoldHouse, 0);
+    // Pin drop
+    const pd = P(u, 1.4, 2.1, E.i), pb = P(u, 2.1, 2.5), po = P(u, 1.4, 1.6) * (1 - P(u, 4.6, 5.2));
+    gPin.setAttribute('transform', `translate(540,${GY})`); pinBody.setAttribute('transform', `translate(0,${(-(1 - pd) * 420 - Math.sin(pb * Math.PI) * 26).toFixed(1)})`); op(gPin, po);
+    const pr = P(u, 2.1, 3.1), ringE = $('#pinRing'); ringE.setAttribute('rx', 34 + pr * 90); ringE.setAttribute('ry', 9 + pr * 20); op(ringE, pd >= 1 ? 1 - pr : 0);
+    // Owner's line
+    op($('#owTag'), P(t, CUE.ow1 - .2, CUE.ow1 + .2) * (1 - P(t, CUE.owEnd - .45, CUE.owEnd)));
+    const o1 = P(t, CUE.ow1, CUE.ow1 + .5, E.o), o2 = P(t, CUE.ow2, CUE.ow2 + .5, E.o);
+    op($('#ow1'), o1 * (1 - P(t, CUE.ow2 - .4, CUE.ow2 - .05))); $('#ow1').style.transform = `translateY(${(1 - o1) * 24}px)`;
+    op($('#ow2'), o2 * (1 - P(t, CUE.owEnd - .45, CUE.owEnd))); $('#ow2').style.transform = `translateY(${(1 - o2) * 24}px)`;
+    // Stage title and progress
+    const si = clamp(Math.floor(v / SD), 0, 3), sv = v - si * SD;
+    op($('#stg'), v >= 0 ? Math.min(P(sv, 0, .3), si < 3 ? 1 - P(sv, SD - .2, SD) : 1 - P(v, 10.0, 10.4)) : 0);
+    $('#stgN').textContent = '0' + (si + 1) + ' / 04'; $('#stgT').textContent = STAGES[si];
+    [...document.querySelectorAll('#bars b')].forEach((b, i) => { b.style.width = (i < si ? 100 : i === si ? clamp(sv / SD) * 100 : 0) + '%'; });
+    op($('#disc'), P(v, .2, .7) * (1 - P(v, 10.0, 10.4)));
+    op($('#vo1'), 0); op($('#vo2'), 0);
+    return;
+  }
+  // Finale: the child's house in gold, the finished building rising behind it
+  op(scB, P(x, -.4, .6, E.s) * (1 - P(t, T.s11 - .4, T.s11 + .4)));
+  site.style.transform = 'none';
+  setSite({
+    time: t, ground: P(x, 1.5, 2.6, E.io), ghost: 0, ghostO: 0, mast: 0, jib: 0, craneO: 0, hookX: 0, hookY: 0, foot: 0, rebar: 0, beam: 0, rebarO: 0, conc: 0, slab1: 0, concO: 0, pumpO: 0, nozX: 0,
+    cols: [1, 1, 1, 1, 1], slab: [1, 1, 1, 1, 1], fac: [1, 1, 1, 1, 1], roof: 1, light: o => P(x, 4.3 + o * .09, 4.8 + o * .09), buildO: .6, rise: P(x, 2.5, 5.4, E.io),
+  });
+  op(gPin, 0); op($('#stg'), 0); op($('#owTag'), 0); op($('#ow1'), 0); op($('#ow2'), 0);
+  STARS.forEach(s => op(s.e, P(x, .2, 1.6) * (.35 + .65 * (.5 + .5 * Math.sin(t * s.sp + s.ph)))));
+  op(gStars, 1);
+  // House: starts exactly over the crayon house, then settles on the ground line
+  const gp = P(x, 1.4, 2.8, E.io), A = p2s(450, 902), camS = 1.12, hf = p2s(HOUSE[0], HOUSE[1]);
+  const ax = 540 + (A[0] - hf[0]) * camS, ay = 900 + (A[1] - hf[1]) * camS;
+  gGoldHouse.setAttribute('transform', `translate(${lerp(ax, 540, gp).toFixed(2)},${lerp(ay, GY, gp).toFixed(2)}) rotate(${lerp(-2, 0, gp).toFixed(3)}) scale(${lerp(camS, .62, gp).toFixed(4)}) translate(-450,-902)`);
+  gGoldHouse.setAttribute('stroke-width', (6 / lerp(camS, .62, gp)).toFixed(2));
+  op(gGoldHouse, 1); goldParts.forEach((p, i) => p.setAttribute('stroke-dashoffset', 1 - P(x, -.2 + i * .15, .7 + i * .15, E.s))); gGoldHouse.setAttribute('fill-opacity', P(x, 1.2, 2.4));
+  const v1 = P(t, CUE.vo1, CUE.vo1 + .6, E.o), v2 = P(t, CUE.vo2, CUE.vo2 + .6, E.o);
+  op($('#vo1'), v1 * (1 - P(t, CUE.vo2 - .4, CUE.vo2 - .05))); $('#vo1').style.transform = `translateY(${(1 - v1) * 24}px)`;
+  op($('#vo2'), v2 * (1 - P(t, CUE.voEnd - .4, CUE.voEnd))); $('#vo2').style.transform = `translateY(${(1 - v2) * 24}px)`;
+  op($('#disc'), P(x, 2.6, 3.2) * (1 - P(x, 7.3, 7.7)));
+}
+
+// ---------- Scene C: brand card ----------
+const scC = $('#scC'), dust = $('#dust').getContext('2d'), DUST = []; { const r = rng(404); for (let i = 0; i < 70; i++) DUST.push({ x: r() * 1080, y: r() * 1920, s: .8 + r() * 2.2, v: 14 + r() * 30, ph: r() * 6.28, sp: .6 + r() * 1.6, dr: (r() - .5) * 30 }); }
+// Current Syrian flag: green, white, black with three red stars
+(function flag() {
+  const f = $('#flag'); el('rect', { width: 90, height: 20, fill: '#007A3D' }, f); el('rect', { y: 20, width: 90, height: 20, fill: '#fff' }, f); el('rect', { y: 40, width: 90, height: 20, fill: '#000' }, f);
+  [22.5, 45, 67.5].forEach(cx => el('polygon', { points: [...Array(10)].map((_, i) => { const r = i % 2 ? 2.9 : 7.4, a = -Math.PI / 2 + i * Math.PI / 5; return (cx + Math.cos(a) * r).toFixed(2) + ',' + (30 + Math.sin(a) * r).toFixed(2); }).join(' '), fill: '#CE1126' }, f));
+})();
+function renderC(t) {
+  const on = t >= T.s11 - .45; show(scC, on); if (!on) return;
+  const y = t - T.s11;
+  op(scC, P(y, -.4, .4, E.s));
+  // Gold dust
+  dust.clearRect(0, 0, 1080, 1920);
+  for (const d of DUST) { const yy = ((d.y - t * d.v) % 1920 + 1920) % 1920, xx = d.x + Math.sin(t * .4 + d.ph) * d.dr, a = (.25 + .75 * (.5 + .5 * Math.sin(t * d.sp + d.ph))) * .55 * P(y, .2, 1.5); dust.fillStyle = `rgba(233,199,110,${a.toFixed(3)})`; dust.beginPath(); dust.arc(xx, yy, d.s, 0, 6.283); dust.fill(); }
+  op($('#glow'), P(y, .4, 2.6, E.s));
+  // Logo: soft wipe from the right, settle, then a light sweep
+  const lp = P(y, .5, 2.4, E.io), edge = lp * 124 - 12, logo = $('#logo');
+  logo.style.webkitMaskImage = logo.style.maskImage = `linear-gradient(to left,#000 ${edge.toFixed(2)}%,transparent ${(edge + 12).toFixed(2)}%)`;
+  $('#logoWrap').style.transform = `scale(${(1.06 - .06 * P(y, .5, 3.2, E.o) + .02 * P(y, 3.2, 10)).toFixed(4)})`;
+  const sh = P(y, 2.3, 3.5, E.io), sh2 = P(y, 6.6, 7.8, E.io), shine = $('#shine'), sp = sh > 0 && sh < 1 ? sh : sh2;
+  shine.style.backgroundPosition = `${(100 - sp * 100).toFixed(2)}% 0`; op(shine, sp > 0 && sp < 1 ? .9 : 0);
+  // Text lines
+  [['#brand', CUE.brand], ['#slogan', CUE.slogan], ['#rule', CUE.contact], ['#ctl', CUE.contact + .3], ['#num', CUE.contact + .7], ['#loc', CUE.contact + 1.3]].forEach(([id, a]) => { const p = P(t, a, a + .6, E.o), e = $(id); op(e, p); e.style.transform = id === '#rule' ? `scaleX(${p})` : `translateY(${((1 - p) * 22).toFixed(1)}px)`; });
+}
+
+// ---------- Captions and overlays ----------
+const capEl = $('#cap'), whoEl = $('#capWho'), txtEl = $('#capTxt'); let capIdx = -2;
+function renderCap(t) {
+  const i = CAPS.findIndex(c => t >= c.a && t < c.b);
+  if (i < 0) { op(capEl, 0); op($('#capBg'), 0); return; }
+  const c = CAPS[i];
+  if (i !== capIdx) { capIdx = i; whoEl.textContent = WHO[c.who]; capEl.className = c.who + (c.long ? ' long' : ''); txtEl.innerHTML = c.text.split(' ').map(w => `<span>${w}</span>`).join(' '); }
+  const vis = Math.min(P(t, c.a, c.a + .3), 1 - P(t, c.b - .3, c.b));
+  op(capEl, vis); op($('#capBg'), vis * (t < T.s4 + 1.5 || t >= T.s9 ? 1 : .55));
+  const spans = txtEl.children, n = spans.length, s0 = (c.sa ?? c.a + .1) - .12, spanT = c.silent ? 1.2 : ((c.sb ?? c.b) - s0) * .85;
+  for (let k = 0; k < n; k++) { const a = s0 + spanT * k / n, p = P(t, a, a + .3, E.o); op(spans[k], c.silent ? .35 + .65 * (.5 + .5 * Math.sin((t - c.a) * 4 - k * 1.2)) : p); spans[k].style.transform = `translateY(${((1 - p) * 10).toFixed(1)}px)`; }
+}
+function renderOverlays(t) {
+  op($('#warm'), P(t, T.s9 - .3, T.s9, E.s) * (1 - P(t, T.s9, T.s9 + .9, E.o)));
+  op($('#black'), Math.max(1 - P(t, .1, 1.3, E.s), P(t, T.end - .8, T.end - .1, E.s)));
+}
+
+window.renderAt = function (t) { renderA(t); renderPhone(t); renderB(t); renderC(t); renderCap(t); renderOverlays(t); };
+
+// Wait for fonts and images, then measure strokes
+(async () => {
+  await Promise.all(['500 20px "Playpen Sans Arabic"', '700 20px Amiri', '800 20px Tajawal', '700 20px Tajawal', '500 20px Tajawal', '400 20px Tajawal'].map(f => document.fonts.load(f, 'بيتنا 0123 +')));
+  await Promise.all([...document.images].map(i => i.decode().catch(() => {})));
+  for (const s of STROKES) s.len = s.el.getTotalLength();
+  window.renderAt(0); window.filmReady = true;
+})();
+</script>
+</body>
+</html>
